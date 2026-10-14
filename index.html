@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   Orlando Adventures — Prototype
+  </title>
+  <style>
+/* Orlando Adventures — early visual prototype
+   Paper tones and map colors are temporary until the team finalizes its style guide.
+   The map below is a visual sketch, not a geographic or accessible production map. */
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Kalam:wght@400;700&display=swap');
+  
+
+:root {
+  --paper:#f6e7cf;
+  --dark:#243f2b;
+  --rust:#bc572d;
+  --line:#c7a982
+}
+
+* {
+  box-sizing:border-box
+}
+
+body {
+  margin:0;
+  background:#e9d5b6;
+  color:#29291e;
+  font-family:'DM Sans',Arial,sans-serif;
+  background-image:radial-gradient(#9d7c5430 .7px,transparent .7px);
+  background-size:9px 9px
+}
+
+button,input {
+  font:inherit
+}
+
+button {
+  cursor:pointer
+}
+
+header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 5%;
+  background:#f8e8d1;
+  border-bottom:2px dashed #c7a982;
+  gap:18px
+}
+
+.logo {
+  font-family:Kalam,cursive;
+  font-size:30px;
+  line-height:1;
+  color:var(--dark);
+  white-space:nowrap
+}
+
+.logo small {
+  display:block;
+  font:700 12px 'DM Sans',sans-serif;
+  letter-spacing:3px;
+  text-align:center
+}
+
+nav {
+  display:flex;
+  gap:24px;
+  flex-wrap:wrap
+}
+
+nav a {
+  color:#253427;
+  text-decoration:none;
+  font-weight:700;
+  font-size:14px
+}
+
+nav a:hover {
+  text-decoration:underline
+}
+
+.passport {
+  background:#a84232;
+  color:#ffe9b8;
+  border:0;
+  border-radius:4px;
+  transform:rotate(7deg);
+  padding:13px 8px;
+  font-size:12px;
+  font-weight:700;
+  box-shadow:2px 3px 0 #623322
+}
+
+main {
+  max-width:1450px;
+  margin:auto;
+  padding:0 3% 40px
+}
+
+.reminder {
+  display:none;
+  background:#e8c8a4;
+  text-align:center;
+  padding:7px 36px;
+  position:relative;
+  font-size:13px
+}
+
+.reminder button {
+  background:none;
+  border:0;
+  text-decoration:underline;
+  font-weight:700;
+  color:var(--dark)
+}
+
+.reminder .dismiss {
+  position:absolute;
+  right:15px;
+  top:5px;
+  text-decoration:none;
+  font-size:20px
+}
+
+.categories {
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:8px;
+  padding:15px 0;
+  border-bottom:2px solid #d5b991
+}
+
+.category {
+  border:0;
+  background:transparent;
+  padding:7px 2px;
+  font-size:12px;
+  font-weight:700;
+  color:#26362a
+}
+
+.category span {
+  display:block;
+  font-size:28px;
+  margin-bottom:4px
+}
+
+.category:hover,.category:focus-visible {
+  background:#fff6e7;
+  border-radius:10px
+}
+
+.maptitle {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:15px;
+  margin:13px 0
+}
+
+h1,h2 {
+  font-family:Kalam,cursive;
+  font-weight:700;
+  margin:0
+}
+
+h1 {
+  font-size:33px
+}
+
+h2 {
+  font-size:29px
+}
+
+.maptitle p {
+  margin:0 0 7px;
+  font-size:14px
+}
+
+.map {
+  height:300px;
+  position:relative;
+  overflow:hidden;
+  border:10px solid #f4e4ca;
+  border-radius:25px 14px 26px 13px;
+  box-shadow:0 3px 8px #71583a2c;
+  background-color:#c9d5af;
+  background-image:linear-gradient(26deg,transparent 45%,#fff0ce 46%,#fff0ce 48%,transparent 49%),linear-gradient(108deg,transparent 40%,#f9e4b9 41%,#f9e4b9 43%,transparent 44%),linear-gradient(163deg,transparent 53%,#fff1d5 54%,#fff1d5 56%,transparent 57%),radial-gradient(ellipse at 72% 35%,#91b7c5 0 9%,transparent 9.5%),radial-gradient(ellipse at 19% 68%,#8bb2bf 0 7%,transparent 7.5%),repeating-linear-gradient(0deg,transparent 0 45px,#b4c9a4 46px 48px),repeating-linear-gradient(90deg,transparent 0 63px,#b4c9a4 64px 66px)
+}
+
+.map:before {
+  content:'ORLANDO';
+  position:absolute;
+  left:44%;
+  top:43%;
+  font-family:Kalam,cursive;
+  font-size:28px;
+  color:#39543e;
+  transform:rotate(-8deg)
+}
+
+.pin {
+  position:absolute;
+  transform:translate(-50%,-50%);
+  border:3px solid #fff2d7;
+  border-radius:50% 50% 50% 0;
+  rotate:-45deg;
+  background:#b95d31;
+  color:white;
+  font-size:19px;
+  width:43px;
+  height:43px;
+  box-shadow:1px 3px 3px #43553a60
+}
+
+.pin span {
+  display:block;
+  rotate:45deg
+}
+
+.pin.green {
+  background:#37603e
+}
+
+.pin.blue {
+  background:#39788c
+}
+
+.pin.red {
+  background:#b74440
+}
+
+.mapnote {
+  position:absolute;
+  right:20px;
+  top:14px;
+  background:#fff0d3;
+  transform:rotate(5deg);
+  padding:14px;
+  font-family:Kalam,cursive;
+  font-size:19px;
+  box-shadow:2px 3px 7px #4a4a2d40
+}
+
+.mapbtn {
+  position:absolute;
+  right:22px;
+  bottom:22px
+}
+
+.primary {
+  border:0;
+  border-radius:12px;
+  background:var(--dark);
+  color:white;
+  font-weight:700;
+  padding:13px 24px
+}
+
+.primary:hover {
+  background:#416647
+}
+
+.secondary {
+  border:1px solid #b88d5f;
+  background:#f9e7cd;
+  border-radius:12px;
+  padding:12px 20px
+}
+
+.featured {
+  margin-top:14px
+}
+
+.filters {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:7px 0 15px
+}
+
+.filter {
+  border:1px solid #cda980;
+  border-radius:30px;
+  background:#f9e9d2;
+  padding:7px 19px;
+  font-size:13px
+}
+
+.filter.active {
+  background:var(--dark);
+  color:white
+}
+
+.cards {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px
+}
+
+.card {
+  background:#fff1da;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 2px 5px #6448272b
+}
+
+.photo {
+  height:145px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:54px;
+  background:linear-gradient(135deg,#314f3e,#d69a60)
+}
+
+.card:nth-child(2) .photo {
+  background:linear-gradient(135deg,#a4b47a,#557a6d)
+}
+
+.card:nth-child(3) .photo {
+  background:linear-gradient(135deg,#82563c,#d7aa63)
+}
+
+.card:nth-child(4) .photo {
+  background:linear-gradient(135deg,#a85543,#e3aa71)
+}
+
+.cardbody {
+  padding:12px
+}
+
+.cardbody strong {
+  display:block
+}
+
+.cardbody p {
+  font-size:12px;
+  margin:6px 0
+}
+
+.tag {
+  display:inline-block;
+  border-radius:20px;
+  background:#efc49d;
+  padding:5px 10px;
+  font-size:11px
+}
+
+.shade {
+  position:fixed;
+  inset:0;
+  background:#252d2480;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  z-index:5
+}
+
+.modal {
+  position:relative;
+  background:#f8e9d0;
+  border:2px solid #e2c5a0;
+  border-radius:9px;
+  padding:33px 40px;
+  max-width:490px;
+  width:100%;
+  text-align:center;
+  box-shadow:12px 14px 0 #3d37243d;
+  transform:rotate(-1deg)
+}
+
+.modal:before {
+  content:'📎';
+  position:absolute;
+  top:-22px;
+  left:20px;
+  font-size:34px
+}
+
+.modal h2 {
+  font-size:38px;
+  line-height:1.2
+}
+
+.modal p {
+  line-height:1.6
+}
+
+.modal .primary,.modal .secondary {
+  width:100%;
+  margin-top:12px
+}
+
+.x {
+  position:absolute;
+  right:13px;
+  top:10px;
+  background:none;
+  border:0;
+  font-size:25px
+}
+
+.form {
+  text-align:left;
+  margin:18px 0
+}
+
+.form label {
+  display:block;
+  font-weight:700;
+  font-size:13px;
+  margin-bottom:6px
+}
+
+.form input {
+  width:100%;
+  padding:12px;
+  background:#fff8ed;
+  border:1px solid #bea482;
+  border-radius:8px
+}
+
+.chips {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:8px
+}
+
+.chip {
+  border:1px solid #c2a17d;
+  border-radius:22px;
+  background:#fff1db;
+  padding:7px 12px;
+  font-size:12px
+}
+
+.chip.selected {
+  background:#35543c;
+  color:white
+}
+
+.hidden {
+  display:none!important
+}
+
+:focus-visible {
+  outline:3px solid #247eac;
+  outline-offset:3px
+}
+
+
+@media(max-width:850px) {
+  nav {
+  display:none
+}
+
+.categories {
+  grid-template-columns:repeat(4,1fr)
+}
+
+.cards {
+  grid-template-columns:repeat(2,1fr)
+}
+
+.map {
+  height:290px
+}
+}
+
+
+@media(max-width:500px) {
+  header {
+  padding:12px
+}
+
+.logo {
+  font-size:24px
+}
+
+.categories {
+  grid-template-columns:repeat(3,1fr)
+}
+
+.cards {
+  grid-template-columns:1fr
+}
+
+.maptitle {
+  display:block
+}
+
+.modal {
+  padding:30px 20px
+}
+
+.modal h2 {
+  font-size:30px
+}
+
+.mapnote {
+  display:none
+}
+}
+
+
+
+
+/* Keep filtered cards out of the layout. */
+.card[hidden] { display: none; }
+
+</style>
+ </head>
+ <body>
+  <header>
+   <div class="logo">
+    Orlando 🎈
+    <small>
+     ADVENTURES
+    </small>
+   </div>
+   <nav aria-label="Main navigation">
+    <a href="#map">
+     Explore
+    </a>
+    <a href="#featured">
+     Events
+    </a>
+    <a href="#featured">
+     Businesses
+    </a>
+    <a href="#map">
+     Hidden Gems
+    </a>
+    <a href="#featured">
+     Create
+    </a>
+    <a href="#featured">
+     About
+    </a>
+   </nav>
+   <button class="passport" onclick="alert('Passport stamps coming in a future prototype!')">
+    ✧ PASSPORT ✧
+   </button>
+  </header>
+  <div class="reminder" id="reminder">
+   Want a more personalized adventure?
+   <button onclick="openOnboarding()">
+    Complete onboarding →
+   </button>
+   <button aria-label="Dismiss reminder" class="dismiss" onclick="document.getElementById('reminder').style.display='none'">
+    ×
+   </button>
+  </div>
+  <main>
+   <section aria-label="Explore categories" class="categories">
+    <button class="category" onclick="filterCards('Events')">
+     <span>
+      ⛺
+     </span>
+     Pop-Up Events
+    </button>
+    <button class="category" onclick="filterCards('Businesses')">
+     <span>
+      🏡
+     </span>
+     Local Businesses
+    </button>
+    <button class="category" onclick="filterCards('Food')">
+     <span>
+      🥤
+     </span>
+     Food &amp; Drink
+    </button>
+    <button class="category" onclick="filterCards('Outdoor')">
+     <span>
+      🌲
+     </span>
+     Outdoor &amp; Nature
+    </button>
+    <button class="category" onclick="filterCards('Hidden Gems')">
+     <span>
+      📍
+     </span>
+     Hidden Gems
+    </button>
+    <button class="category" onclick="filterCards('Sensory Safe')">
+     <span>
+      🍃
+     </span>
+     Sensory Safe
+    </button>
+    <button class="category" onclick="filterCards('All')">
+     <span>
+      🤝
+     </span>
+     Community Picks
+    </button>
+   </section>
+   <section id="map">
+    <div class="maptitle">
+     <div>
+      <h1>
+       Interactive Map ✳
+      </h1>
+      <p>
+       Explore events, businesses, and community spots across Orlando.
+      </p>
+     </div>
+    </div>
+    <div aria-label="Decorative placeholder map of Orlando with category markers; a live map is planned for future development" class="map" role="img">
+     <button class="pin green" style="left:20%;top:25%" title="Outdoor spot">
+      <span>
+       🌲
+      </span>
+     </button>
+     <button class="pin" style="left:32%;top:60%" title="Food pop-up">
+      <span>
+       🥤
+      </span>
+     </button>
+     <button class="pin blue" style="left:48%;top:30%" title="Local business">
+      <span>
+       🏠
+      </span>
+     </button>
+     <button class="pin red" style="left:72%;top:52%" title="Hidden gem">
+      <span>
+       ♥
+      </span>
+     </button>
+     <button class="pin green" style="left:83%;top:73%" title="Nature trail">
+      <span>
+       🌿
+      </span>
+     </button>
+     <div class="mapnote">
+      Find what
+      <br/>
+      moves you ♡
+     </div>
+     <button class="primary mapbtn" onclick="alert('The full interactive map will be built later with Leaflet and OpenStreetMap.')">
+      Open Full Map →
+     </button>
+    </div>
+   </section>
+   <section class="featured" id="featured">
+    <h2>
+     Featured Events &amp; Spots ✳
+    </h2>
+    <div class="filters" id="filters">
+     <button class="filter active" onclick="filterCards('All')">
+      All
+     </button>
+     <button class="filter" onclick="filterCards('Events')">
+      Events
+     </button>
+     <button class="filter" onclick="filterCards('Businesses')">
+      Businesses
+     </button>
+     <button class="filter" onclick="filterCards('Hidden Gems')">
+      Hidden Gems
+     </button>
+     <button class="filter" onclick="filterCards('Outdoor')">
+      Outdoor
+     </button>
+     <button class="filter" onclick="filterCards('Sensory Safe')">
+      Sensory Safe
+     </button>
+    </div>
+    <div class="cards">
+     <article class="card" data-tags="Events Food">
+      <div class="photo">
+       🎪
+      </div>
+      <div class="cardbody">
+       <strong>
+        Orlando Night Market
+       </strong>
+       <p>
+        📍 Lake Eola Park
+       </p>
+       <span class="tag">
+        Pop-Up Event
+       </span>
+      </div>
+     </article>
+     <article class="card" data-tags="Events Outdoor Sensory Safe">
+      <div class="photo">
+       🌅
+      </div>
+      <div class="cardbody">
+       <strong>
+        Sunset Yoga in the Park
+       </strong>
+       <p>
+        📍 Lake Eola Park
+       </p>
+       <span class="tag">
+        Outdoor
+       </span>
+      </div>
+     </article>
+     <article class="card" data-tags="Businesses Food">
+      <div class="photo">
+       ☕
+      </div>
+      <div class="cardbody">
+       <strong>
+        The Nook Coffee Pop-Up
+       </strong>
+       <p>
+        📍 Audubon Park
+       </p>
+       <span class="tag">
+        Local Business
+       </span>
+      </div>
+     </article>
+     <article class="card" data-tags="Hidden Gems Events">
+      <div class="photo">
+       🎨
+      </div>
+      <div class="cardbody">
+       <strong>
+        Art in the Alley
+       </strong>
+       <p>
+        📍 Thornton Park
+       </p>
+       <span class="tag">
+        Hidden Gem
+       </span>
+      </div>
+     </article>
+    </div>
+   </section>
+  </main>
+  <div class="shade" id="shade">
+   <section aria-labelledby="modalTitle" aria-modal="true" class="modal" role="dialog">
+    <button aria-label="Close popup" class="x" onclick="closePopup()">
+     ×
+    </button>
+    <div id="welcome">
+     <h2 id="modalTitle">
+      Welcome to
+      <br/>
+      Orlando Adventures!
+     </h2>
+     <p>
+      Discover local pop-ups, businesses, hidden gems and create your own adventures around Orlando.
+     </p>
+     <button class="primary" onclick="openOnboarding()">
+      Start Onboarding →
+     </button>
+     <button class="secondary" onclick="closePopup()">
+      No Thanks, I'll Browse
+     </button>
+    </div>
+    <div class="hidden" id="onboarding">
+     <h2 id="onboardTitle">
+      Let's Personalize
+      <br/>
+      Your Adventure!
+     </h2>
+     <p>
+      A few quick questions to help you explore Orlando.
+     </p>
+     <div class="form">
+      <label for="zip">
+       What's your ZIP code?
+      </label>
+      <input id="zip" inputmode="numeric" maxlength="5" placeholder="e.g. 32801"/>
+     </div>
+     <div class="form">
+      <label>
+       What are you interested in? (Select all that apply)
+      </label>
+      <div class="chips">
+       <button aria-pressed="false" class="chip">
+        Pop-Up Events
+       </button>
+       <button aria-pressed="false" class="chip">
+        Food &amp; Drink
+       </button>
+       <button aria-pressed="false" class="chip">
+        Outdoor &amp; Nature
+       </button>
+       <button aria-pressed="false" class="chip">
+        Local Businesses
+       </button>
+       <button aria-pressed="false" class="chip">
+        Hidden Gems
+       </button>
+       <button aria-pressed="false" class="chip">
+        Sensory Safe
+       </button>
+      </div>
+     </div>
+     <button class="primary" onclick="savePreferences()">
+      Save Preferences →
+     </button>
+     <button class="secondary" onclick="closePopup()">
+      Skip for Now
+     </button>
+    </div>
+   </section>
+  </div>
+  <script>
+// Welcome flow: visitors can personalize the site or browse Orlando immediately.
+const overlay = document.getElementById('shade');
+const welcomeScreen = document.getElementById('welcome');
+const onboardingScreen = document.getElementById('onboarding');
+const onboardingReminder = document.getElementById('reminder');
+const popup = document.querySelector('.modal');
+
+function closePopup() {
+  overlay.classList.add('hidden');
+  onboardingReminder.style.display = 'block';
+}
+
+function openOnboarding() {
+  welcomeScreen.classList.add('hidden');
+  onboardingScreen.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+  popup.setAttribute('aria-labelledby', 'onboardTitle');
+  document.getElementById('zip').focus();
+}
+
+// Interest selections are kept in the interface for this first prototype.
+document.querySelectorAll('.chip').forEach((chip) => {
+  chip.addEventListener('click', () => {
+    const isSelected = chip.classList.toggle('selected');
+    chip.setAttribute('aria-pressed', String(isSelected));
+  });
+});
+
+function savePreferences() {
+  const zipCode = document.getElementById('zip').value.trim();
+  if (zipCode && !/^\d{5}$/.test(zipCode)) {
+    alert('Please enter a five-digit ZIP code or leave it blank.');
+    return;
+  }
+
+  closePopup();
+  onboardingReminder.style.display = 'none';
+  // Persistence and personalized recommendations belong to a later milestone.
+  alert('Preferences saved for this prototype!');
+}
+
+function filterCards(category) {
+  document.querySelectorAll('.card').forEach((card) => {
+    const categories = card.dataset.tags.split(' ');
+    card.hidden = category !== 'All' && !categories.includes(category);
+  });
+
+  document.querySelectorAll('.filter').forEach((button) => {
+    button.classList.toggle('active', button.textContent.trim() === category);
+  });
+
+  document.getElementById('featured').scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+}
+
+// Escape provides a quick way to dismiss the welcome or onboarding dialog.
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !overlay.classList.contains('hidden')) {
+    closePopup();
+  }
+});
+
+</script>
+ </body>
+</html>
