@@ -1,0 +1,310 @@
+<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   Orlando Adventures — Prototype
+  </title>
+  <link href="styles.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <header>
+   <div class="logo">
+    Orlando 🎈
+    <small>
+     ADVENTURES
+    </small>
+   </div>
+   <nav aria-label="Main navigation">
+    <a href="#map">
+     Explore
+    </a>
+    <a href="#featured">
+     Events
+    </a>
+    <a href="#featured">
+     Businesses
+    </a>
+    <a href="#map">
+     Hidden Gems
+    </a>
+    <a href="#featured">
+     Create
+    </a>
+    <a href="#featured">
+     About
+    </a>
+   </nav>
+   <button class="passport" onclick="alert('Passport stamps coming in a future prototype!')">
+    ✧ PASSPORT ✧
+   </button>
+  </header>
+  <div class="reminder" id="reminder">
+   Want a more personalized adventure?
+   <button onclick="openOnboarding()">
+    Complete onboarding →
+   </button>
+   <button aria-label="Dismiss reminder" class="dismiss" onclick="document.getElementById('reminder').style.display='none'">
+    ×
+   </button>
+  </div>
+  <main>
+   <section aria-label="Explore categories" class="categories">
+    <button class="category" onclick="filterCards('Events')">
+     <span>
+      ⛺
+     </span>
+     Pop-Up Events
+    </button>
+    <button class="category" onclick="filterCards('Businesses')">
+     <span>
+      🏡
+     </span>
+     Local Businesses
+    </button>
+    <button class="category" onclick="filterCards('Food')">
+     <span>
+      🥤
+     </span>
+     Food &amp; Drink
+    </button>
+    <button class="category" onclick="filterCards('Outdoor')">
+     <span>
+      🌲
+     </span>
+     Outdoor &amp; Nature
+    </button>
+    <button class="category" onclick="filterCards('Hidden Gems')">
+     <span>
+      📍
+     </span>
+     Hidden Gems
+    </button>
+    <button class="category" onclick="filterCards('Sensory Safe')">
+     <span>
+      🍃
+     </span>
+     Sensory Safe
+    </button>
+    <button class="category" onclick="filterCards('All')">
+     <span>
+      🤝
+     </span>
+     Community Picks
+    </button>
+   </section>
+   <section id="map">
+    <div class="maptitle">
+     <div>
+      <h1>
+       Interactive Map ✳
+      </h1>
+      <p>
+       Explore events, businesses, and community spots across Orlando.
+      </p>
+     </div>
+    </div>
+    <div aria-label="Decorative placeholder map of Orlando with category markers; a live map is planned for future development" class="map" role="img">
+     <button class="pin green" style="left:20%;top:25%" title="Outdoor spot">
+      <span>
+       🌲
+      </span>
+     </button>
+     <button class="pin" style="left:32%;top:60%" title="Food pop-up">
+      <span>
+       🥤
+      </span>
+     </button>
+     <button class="pin blue" style="left:48%;top:30%" title="Local business">
+      <span>
+       🏠
+      </span>
+     </button>
+     <button class="pin red" style="left:72%;top:52%" title="Hidden gem">
+      <span>
+       ♥
+      </span>
+     </button>
+     <button class="pin green" style="left:83%;top:73%" title="Nature trail">
+      <span>
+       🌿
+      </span>
+     </button>
+     <div class="mapnote">
+      Find what
+      <br/>
+      moves you ♡
+     </div>
+     <button class="primary mapbtn" onclick="alert('The full interactive map will be built later with Leaflet and OpenStreetMap.')">
+      Open Full Map →
+     </button>
+    </div>
+   </section>
+   <section class="featured" id="featured">
+    <h2>
+     Featured Events &amp; Spots ✳
+    </h2>
+    <div class="filters" id="filters">
+     <button class="filter active" onclick="filterCards('All')">
+      All
+     </button>
+     <button class="filter" onclick="filterCards('Events')">
+      Events
+     </button>
+     <button class="filter" onclick="filterCards('Businesses')">
+      Businesses
+     </button>
+     <button class="filter" onclick="filterCards('Hidden Gems')">
+      Hidden Gems
+     </button>
+     <button class="filter" onclick="filterCards('Outdoor')">
+      Outdoor
+     </button>
+     <button class="filter" onclick="filterCards('Sensory Safe')">
+      Sensory Safe
+     </button>
+    </div>
+    <div class="cards">
+     <article class="card" data-tags="Events Food">
+      <div class="photo">
+       🎪
+      </div>
+      <div class="cardbody">
+       <strong>
+        Orlando Night Market
+       </strong>
+       <p>
+        📍 Lake Eola Park
+       </p>
+       <span class="tag">
+        Pop-Up Event
+       </span>
+      </div>
+     </article>
+     <article class="card" data-tags="Events Outdoor Sensory Safe">
+      <div class="photo">
+       🌅
+      </div>
+      <div class="cardbody">
+       <strong>
+        Sunset Yoga in the Park
+       </strong>
+       <p>
+        📍 Lake Eola Park
+       </p>
+       <span class="tag">
+        Outdoor
+       </span>
+      </div>
+     </article>
+     <article class="card" data-tags="Businesses Food">
+      <div class="photo">
+       ☕
+      </div>
+      <div class="cardbody">
+       <strong>
+        The Nook Coffee Pop-Up
+       </strong>
+       <p>
+        📍 Audubon Park
+       </p>
+       <span class="tag">
+        Local Business
+       </span>
+      </div>
+     </article>
+     <article class="card" data-tags="Hidden Gems Events">
+      <div class="photo">
+       🎨
+      </div>
+      <div class="cardbody">
+       <strong>
+        Art in the Alley
+       </strong>
+       <p>
+        📍 Thornton Park
+       </p>
+       <span class="tag">
+        Hidden Gem
+       </span>
+      </div>
+     </article>
+    </div>
+   </section>
+  </main>
+  <div class="shade" id="shade">
+   <section aria-labelledby="modalTitle" aria-modal="true" class="modal" role="dialog">
+    <button aria-label="Close popup" class="x" onclick="closePopup()">
+     ×
+    </button>
+    <div id="welcome">
+     <h2 id="modalTitle">
+      Welcome to
+      <br/>
+      Orlando Adventures!
+     </h2>
+     <p>
+      Discover local pop-ups, businesses, hidden gems and create your own adventures around Orlando.
+     </p>
+     <button class="primary" onclick="openOnboarding()">
+      Start Onboarding →
+     </button>
+     <button class="secondary" onclick="closePopup()">
+      No Thanks, I'll Browse
+     </button>
+    </div>
+    <div class="hidden" id="onboarding">
+     <h2 id="onboardTitle">
+      Let's Personalize
+      <br/>
+      Your Adventure!
+     </h2>
+     <p>
+      A few quick questions to help you explore Orlando.
+     </p>
+     <div class="form">
+      <label for="zip">
+       What's your ZIP code?
+      </label>
+      <input id="zip" inputmode="numeric" maxlength="5" placeholder="e.g. 32801"/>
+     </div>
+     <div class="form">
+      <label>
+       What are you interested in? (Select all that apply)
+      </label>
+      <div class="chips">
+       <button aria-pressed="false" class="chip">
+        Pop-Up Events
+       </button>
+       <button aria-pressed="false" class="chip">
+        Food &amp; Drink
+       </button>
+       <button aria-pressed="false" class="chip">
+        Outdoor &amp; Nature
+       </button>
+       <button aria-pressed="false" class="chip">
+        Local Businesses
+       </button>
+       <button aria-pressed="false" class="chip">
+        Hidden Gems
+       </button>
+       <button aria-pressed="false" class="chip">
+        Sensory Safe
+       </button>
+      </div>
+     </div>
+     <button class="primary" onclick="savePreferences()">
+      Save Preferences →
+     </button>
+     <button class="secondary" onclick="closePopup()">
+      Skip for Now
+     </button>
+    </div>
+   </section>
+  </div>
+  <script src="script.js">
+  </script>
+ </body>
+</html>
